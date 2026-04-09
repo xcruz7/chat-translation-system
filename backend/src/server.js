@@ -15,12 +15,10 @@ const __dirname = path.dirname(__filename);
 // Create app
 const app = createApp();
 
-// ✅ Serve frontend (dist)
-app.use(express.static(path.join(__dirname, "../../dist")));
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-// ✅ Root route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../dist/index.html"));
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 // ✅ Fallback for React routes
