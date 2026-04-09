@@ -1,0 +1,81 @@
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/500.css";
+@import "@fontsource/manrope/700.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --page-bg: #f7efe8;
+  --page-text: #0f172a;
+  --panel-bg: rgba(255, 255, 255, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.55);
+  --panel-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
+  --hero-gradient:
+    radial-gradient(circle at top left, rgba(255, 138, 91, 0.28), transparent 32%),
+    radial-gradient(circle at top right, rgba(60, 141, 188, 0.22), transparent 36%),
+    linear-gradient(135deg, #fdf7f2 0%, #f7efe8 50%, #ecf6f6 100%);
+}
+
+.dark {
+  color-scheme: dark;
+  --page-bg: #09111f;
+  --page-text: #f8fafc;
+  --panel-bg: rgba(9, 17, 31, 0.78);
+  --panel-border: rgba(148, 163, 184, 0.18);
+  --panel-shadow: 0 24px 80px rgba(2, 6, 23, 0.5);
+  --hero-gradient:
+    radial-gradient(circle at top left, rgba(255, 138, 91, 0.2), transparent 32%),
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.16), transparent 32%),
+    linear-gradient(135deg, #0f172a 0%, #09111f 55%, #03121b 100%);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--hero-gradient);
+  background-attachment: fixed;
+  color: var(--page-text);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(255, 138, 91, 0.35);
+}
+
+@layer components {
+  .glass-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--panel-shadow);
+    @apply rounded-3xl backdrop-blur-xl;
+  }
+
+  .action-button {
+    @apply inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/60 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:bg-slate-900;
+  }
+
+  .icon-button {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/40 bg-white/60 text-slate-700 transition hover:-translate-y-0.5 hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:bg-slate-900;
+  }
+}

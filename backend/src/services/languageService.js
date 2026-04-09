@@ -1,0 +1,51 @@
+const languages = [
+  { code: "auto", name: "Auto Detect", nativeName: "Auto Detect", speechLocale: "", rtl: false },
+  { code: "en", name: "English", nativeName: "English", speechLocale: "en-US", rtl: false },
+  { code: "ta", name: "Tamil", nativeName: "தமிழ்", speechLocale: "ta-IN", rtl: false },
+  { code: "hi", name: "Hindi", nativeName: "हिन्दी", speechLocale: "hi-IN", rtl: false },
+  { code: "kn", name: "Kannada", nativeName: "ಕನ್ನಡ", speechLocale: "kn-IN", rtl: false },
+  { code: "te", name: "Telugu", nativeName: "తెలుగు", speechLocale: "te-IN", rtl: false },
+  { code: "ml", name: "Malayalam", nativeName: "മലയാളം", speechLocale: "ml-IN", rtl: false },
+  { code: "es", name: "Spanish", nativeName: "Español", speechLocale: "es-ES", rtl: false },
+  { code: "fr", name: "French", nativeName: "Français", speechLocale: "fr-FR", rtl: false },
+  { code: "de", name: "German", nativeName: "Deutsch", speechLocale: "de-DE", rtl: false },
+  { code: "zh-CN", name: "Chinese (Simplified)", nativeName: "简体中文", speechLocale: "zh-CN", rtl: false },
+  { code: "ja", name: "Japanese", nativeName: "日本語", speechLocale: "ja-JP", rtl: false },
+  { code: "ar", name: "Arabic", nativeName: "العربية", speechLocale: "ar-SA", rtl: true },
+  { code: "ko", name: "Korean", nativeName: "한국어", speechLocale: "ko-KR", rtl: false },
+  { code: "pt", name: "Portuguese", nativeName: "Português", speechLocale: "pt-PT", rtl: false },
+  { code: "it", name: "Italian", nativeName: "Italiano", speechLocale: "it-IT", rtl: false },
+  { code: "ru", name: "Russian", nativeName: "Русский", speechLocale: "ru-RU", rtl: false },
+  { code: "tr", name: "Turkish", nativeName: "Türkçe", speechLocale: "tr-TR", rtl: false },
+  { code: "nl", name: "Dutch", nativeName: "Nederlands", speechLocale: "nl-NL", rtl: false },
+  { code: "pl", name: "Polish", nativeName: "Polski", speechLocale: "pl-PL", rtl: false },
+  { code: "vi", name: "Vietnamese", nativeName: "Tiếng Việt", speechLocale: "vi-VN", rtl: false }
+];
+
+const languageMap = new Map(languages.map((language) => [language.code, language]));
+
+export const getLanguages = () => languages;
+
+export const getLanguageByCode = (code) => languageMap.get(code) ?? languageMap.get("en");
+
+export const isSupportedLanguage = (code) => languageMap.has(code);
+
+export const normalizeLanguageCode = (code) => {
+  if (!code) {
+    return "auto";
+  }
+
+  const trimmed = code.trim();
+  if (languageMap.has(trimmed)) {
+    return trimmed;
+  }
+
+  const lower = trimmed.toLowerCase();
+
+  if (lower === "zh" || lower === "zh-cn") {
+    return "zh-CN";
+  }
+
+  const byLower = languages.find((language) => language.code.toLowerCase() === lower);
+  return byLower?.code ?? trimmed;
+};
