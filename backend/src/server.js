@@ -1,4 +1,5 @@
 import http from "node:http";
+import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Server as SocketIOServer } from "socket.io";
@@ -11,12 +12,19 @@ import { registerRoomHandlers } from "./socket/registerRoomHandlers.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Create app
 const app = createApp();
 
-// 🔥 Serve frontend (dist folder)
+// ✅ Serve frontend (dist)
 app.use(express.static(path.join(__dirname, "../../dist")));
-``
+
+// ✅ Root route
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../dist/index.html"));
+});
+
+// ✅ Fallback for React routes
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../dist/index.html"));
 });
 
@@ -38,7 +46,5 @@ io.on("connection", (socket) => {
 
 // Start server
 server.listen(env.port, () => {
-  console.log(
-    `Lingua Flow API + Socket.IO running on port ${env.port}`
-  );
+  console.log(`Server running on port ${env.port}`);
 });
